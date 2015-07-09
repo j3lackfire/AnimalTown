@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 8a21dd8d70d52415588c194b8d9fe0e5
+timeCreated: 1436202089
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - smallCabbage: {fileID: 11475340, guid: 37639e6cf47954790b00abf1f46e62ee, type: 2}
+  - bigCabbage: {fileID: 11438260, guid: dbd7a98abdc834d55b770038777cb7ae, type: 2}
+  - smallCarrot: {fileID: 11469078, guid: e0b40fa5b80a04b49af59ab36096a51d, type: 2}
+  - bigCarrot: {fileID: 11414130, guid: 209c30a8bedfa48378b6bd36d765830b, type: 2}
+  - smallCorn: {fileID: 11402472, guid: b6da20ef310cb4f368797e9166a2cf7f, type: 2}
+  - mediumCorn: {fileID: 11442258, guid: 07bbf6ae67fd24612a5971c3b1f31dd1, type: 2}
+  - bigCorn: {fileID: 11498042, guid: b062f80bba8424179b2b46689c394d5e, type: 2}
+  - smallPumpkin: {fileID: 11454774, guid: 554052cf36e89436c9442607f00a3e09, type: 2}
+  - mediumPumpkin: {fileID: 11407604, guid: 9197a99dde630486ab83c2ae9808d39a, type: 2}
+  - bigPumpkin: {fileID: 11472272, guid: b0defd4d3591d482195aae8a55298b1e, type: 2}
+  - smallSunflower: {fileID: 11426094, guid: 793f778aa2b5c4b13804767864649b0c, type: 2}
+  - bigSunflower: {fileID: 11452764, guid: 754abfdcd7ea2481a8e34fc35c5765e6, type: 2}
+  - smallWatermelon: {fileID: 11402886, guid: 3a02178ada9be4b76a36fbab205fccb3, type: 2}
+  - bigWatermelon: {fileID: 11441096, guid: dec24eea4f22c47049630ca6ae783585, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
