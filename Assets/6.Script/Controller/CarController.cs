@@ -1,11 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour {
+
+#region DATA_CONTROLLER
+
+	[SerializeField]public bool isDrivable;
+
+
+
+#endregion
+
 
 	Rigidbody r;
 
-	[SerializeField]float carSpeed;
+	[SerializeField]public float carSpeed;
 
 	Vector3 targetPosition;
 
@@ -51,7 +63,7 @@ public class CarController : MonoBehaviour {
 		if (distance.magnitude < 0.21f) {
 			return;
 		}
-		//		Vector3 moveDirection = destinatedPosition - this.transform.position;
+
 	}
 
 

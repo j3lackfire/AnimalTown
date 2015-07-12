@@ -59,6 +59,7 @@ public class MouseController : MonoBehaviour {
 					break;
 				case "Cars": //move to car and drive it, maybe
 					PlayerCommandType = CommandType.InteractWithObject;
+					MainDataController.interactableGameObject = hitInfo.transform.gameObject;
 					break;
 				default:
 					Debug.Log("<color=red>Something wrong happen at the Mouse controller, please check here</color>");

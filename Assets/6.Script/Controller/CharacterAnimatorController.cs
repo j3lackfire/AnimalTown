@@ -39,20 +39,20 @@ public class CharacterAnimatorController : MonoBehaviour {
 
 	}
 
-	void Update(){
-		if (Input.GetKeyDown (KeyCode.A))
-			EnterIdleAnimation ();
-
-		if (Input.GetKeyDown (KeyCode.B))
-			EnterWalkAnimation ();
-
-		if (Input.GetKeyDown (KeyCode.C))
-			EnterRunAnimation ();
-
-		if (Input.GetKeyDown (KeyCode.D))
-			EnterWaveAnimation ();
-
-	}
+//	void Update(){
+//		if (Input.GetKeyDown (KeyCode.A))
+//			EnterIdleAnimation ();
+//
+//		if (Input.GetKeyDown (KeyCode.B))
+//			EnterWalkAnimation ();
+//
+//		if (Input.GetKeyDown (KeyCode.C))
+//			EnterRunAnimation ();
+//
+//		if (Input.GetKeyDown (KeyCode.D))
+//			EnterWaveAnimation ();
+//
+//	}
 
 	public void EnterIdleAnimation(){
 		characterAnimationType = PlayerAnimationType.Idle;

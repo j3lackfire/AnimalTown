@@ -44,6 +44,7 @@ public class MainPlayerController : MonoBehaviour {
 		MoveToTargetedPosition ();
 	}
 
+	//this function is called every frame. 
 	void MoveToTargetedPosition(){
 
 		Vector3 distance = new Vector3
@@ -52,12 +53,12 @@ public class MainPlayerController : MonoBehaviour {
 			Collider[] overlapObjects = Physics.OverlapSphere(this.transform.position + new Vector3(0,1,0),1.25f);
 			foreach(Collider c in overlapObjects){
 				if (c.gameObject.tag == "Cars"){
-					EnterCar();
+					EnterCarAnimation();
 				}
 			}
 			//if PlayerPrefs is getting near the car
 			if (distance.magnitude <= 0.5f){
-				EnterCar();
+				EnterCarAnimation();
 				//get in the car and take control of the car
 			}
 			else{
@@ -80,6 +81,7 @@ public class MainPlayerController : MonoBehaviour {
 
 	}	
 
+	//This function is important
 	public void SetTargetPosition(Vector3 _targetPosition){
 		isMovingToCar = false;
 
@@ -109,49 +111,15 @@ public class MainPlayerController : MonoBehaviour {
 //		Vector3 moveDirection = destinatedPosition - this.transform.position;
 	}
 
-	public void MoveToCar(GameObject car){
-		Debug.Log ("MOVE TO CAR!!!");
-		isMovingToCar = true;
-		targetCar = car;
-		
-		this.transform.LookAt(car.transform.position);
-		float yRotation = this.gameObject.transform.localRotation.eulerAngles.y;
-		this.transform.localRotation = Quaternion.Euler
-			(new Vector3(0,yRotation,0));
 
-		targetPosition = car.transform.position;
-
-		Vector3 distance = new Vector3
-			(targetPosition.x - this.transform.position.x,0,targetPosition.z - this.transform.position.z);
-
-		if (distance.magnitude < 4f) {
-			moveSpeed = 2.5f;			
-			if (characterAnimatorController.characterAnimationType != PlayerAnimationType.Walk) {
-				characterAnimatorController.EnterWalkAnimation ();
-			}
-		} else {
-			moveSpeed = 8;
-			if (characterAnimatorController.characterAnimationType != PlayerAnimationType.Run) {
-				characterAnimatorController.EnterRunAnimation ();
-			}
-		}
-
-	}
-
-	void EnterCar(){
-		Debug.Log ("Player takes control of the car");
+	public void EnterCarAnimation(){
+		Debug.Log ("<color=orange>Player takes control of the car</color>");
 		isMovingToCar = false;
 		MainCamera.MainPlayer = targetCar;
 //		GlobalStatic.playerState = PlayerState.Driving;
 		this.gameObject.SetActive (false);
 	}
 
-//	void OnCollisionEnter(Collision col){
-//		if (isMovingToCar) {
-//			if (col.gameObject.tag == "Cars"){
-//				EnterCar();
-//				isMovingToCar = false;
-//			}
-//		}
-//	}
+
+
 }
