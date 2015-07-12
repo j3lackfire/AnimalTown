@@ -4,6 +4,7 @@ using System.Collections;
 public class MainPlayerController : MonoBehaviour {
 
 #region UNITY EDITOR
+
 	public CameraController MainCamera;
 
 
@@ -22,16 +23,12 @@ public class MainPlayerController : MonoBehaviour {
 	GameObject targetCar;
 
 	//move speed of the player
-	bool isMovingToCar;
 	
 #endregion
-	public bool isDriving;
 
 	[SerializeField]float moveSpeed;	
 
 	void Awake(){
-		isMovingToCar = false;
-
 		//might want to change this.
 		characterController = this.gameObject.GetComponent<CharacterController> ();
 
@@ -49,42 +46,23 @@ public class MainPlayerController : MonoBehaviour {
 
 		Vector3 distance = new Vector3
 			(targetPosition.x - this.transform.position.x,0,targetPosition.z - this.transform.position.z);
-		if (isMovingToCar) {
-			Collider[] overlapObjects = Physics.OverlapSphere(this.transform.position + new Vector3(0,1,0),1.25f);
-			foreach(Collider c in overlapObjects){
-				if (c.gameObject.tag == "Cars"){
-					EnterCarAnimation();
-				}
+
+		if (distance.magnitude < 0.2f) {
+			if (characterAnimatorController.characterAnimationType == PlayerAnimationType.Walk
+			    		|| characterAnimatorController.characterAnimationType == PlayerAnimationType.Run){
+				
+				characterAnimatorController.EnterIdleAnimation();
 			}
-			//if PlayerPrefs is getting near the car
-			if (distance.magnitude <= 0.5f){
-				EnterCarAnimation();
-				//get in the car and take control of the car
-			}
-			else{
-				characterController.Move(distance.normalized* Time.deltaTime * moveSpeed);	
-			}
+			return;
 		} 
 		else {
-			if (distance.magnitude < 0.2f) {
-				if (characterAnimatorController.characterAnimationType == PlayerAnimationType.Walk
-				    || characterAnimatorController.characterAnimationType == PlayerAnimationType.Run){
-					
-					characterAnimatorController.EnterIdleAnimation();
-				}
-				return;
-			} 
-			else {
-				characterController.Move(distance.normalized* Time.deltaTime * moveSpeed);	
-			}
+			characterController.Move(distance.normalized* Time.deltaTime * moveSpeed);	
 		}
 
 	}	
 
 	//This function is important
 	public void SetTargetPosition(Vector3 _targetPosition){
-		isMovingToCar = false;
-
 		this.transform.LookAt(_targetPosition);
 		float yRotation = this.gameObject.transform.localRotation.eulerAngles.y;
 		this.transform.localRotation = Quaternion.Euler
@@ -114,12 +92,14 @@ public class MainPlayerController : MonoBehaviour {
 
 	public void EnterCarAnimation(){
 		Debug.Log ("<color=orange>Player takes control of the car</color>");
-		isMovingToCar = false;
-		MainCamera.MainPlayer = targetCar;
 //		GlobalStatic.playerState = PlayerState.Driving;
 		this.gameObject.SetActive (false);
 	}
 
+	public void ExitCarAnimation(){
+		Debug.Log ("<color=orange>Player exits the car</color>");
+		this.gameObject.SetActive (true);
+	}
 
 
 }

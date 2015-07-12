@@ -43,8 +43,6 @@ public class CarController : MonoBehaviour {
 		else {
 //			r.AddForce(distance.normalized* Time.deltaTime * carSpeed,ForceMode.Force);	
 			r.velocity = distance.normalized* Time.deltaTime * carSpeed;	
-
-			
 		}
 		
 	}	

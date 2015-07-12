@@ -43,7 +43,7 @@ public class DataController : MonoBehaviour {
 #endregion
 
 #region UNITY EDITOR
-	[HideInInspector]public Camera mainCamera;
+	[HideInInspector]public CameraController mainCamera;
 	
 	public MainPlayerController mainPlayer;
 	public CarController mainPlayerCar;
@@ -54,11 +54,18 @@ public class DataController : MonoBehaviour {
 		playerState = PlayerState.OnFoot;
 		commandType = CommandType.MoveToPosition;
 		interactableObjectType = InteractableObjectType.Cars;
+
+		mainPlayer = FindObjectOfType<MainPlayerController> ();
+		mainCamera = FindObjectOfType<CameraController> ();
 	}
 
-	//public current controlling target (main player / car / farm UI ....)
-
-	//public void switch controlling target () -> switch to main player, car or farm UI and deactive the rest.
+	void Update(){
+		if (playerState == PlayerState.Driving) {
+			if (Input.GetKeyDown(KeyCode.Space)){
+				PlayerExitCar();
+			}
+		}
+	}
 
 	//This function is called whenever player click the mouse button. It gets the click position and the type of action to do after wards
 	public void SetMouseClickPosition(Vector3 clickPosition,CommandType _commandType){
@@ -71,14 +78,14 @@ public class DataController : MonoBehaviour {
 				mainPlayer.SetTargetPosition(clickPosition);
 				break;
 			case PlayerState.Driving:
-//				mainPlayerCar.SetTargetPosition(clickPosition);
+				mainPlayerCar.SetTargetPosition(clickPosition);
 				break;
 			default:
 				Debug.Log("<color=red>Player State Error, unidentify situation</color>");			
 				break;
 			}
-
 			break;
+
 		case CommandType.InteractWithObject:
 			Debug.Log("<color=orange>Player is interacting with an object</color>");
 			//First, we check if the player is within the object range. If not, we have to move to the ojbect
@@ -135,8 +142,6 @@ public class DataController : MonoBehaviour {
 
 			yield return null;
 		}
-
-
 	EndOfCoroutine:
 		yield return null;
 	}
@@ -148,16 +153,17 @@ public class DataController : MonoBehaviour {
 			//first, change the player state to driving.
 			playerState = PlayerState.Driving;
 
-			//we should do an animation of player enter the car here
 			mainPlayer.SetTargetPosition(mainPlayer.transform.position);
-			
+
+			//we should do an animation of player enter the car here		
 			//When enter the car, deactive the player, or move him some where else
-
-
+			mainPlayer.EnterCarAnimation();
 
 			//Switch the main controller to the Car
-			
-			//Set up the camera to focus on the player again.
+			mainPlayerCar = interactableGameObject.gameObject.GetComponent<CarController>();
+
+			//Set up the camera to focus on the car again.
+			mainCamera.SwitchViewToCar(interactableGameObject);
 
 		}
 		else {
@@ -173,5 +179,16 @@ public class DataController : MonoBehaviour {
 
 	public void PlayerExitCar(){
 		playerState = PlayerState.OnFoot;		
+		mainPlayer.gameObject.SetActive (true);
+
+		mainPlayer.ExitCarAnimation ();
+		mainPlayer.transform.position = interactableGameObject.transform.position;
+		mainPlayer.SetTargetPosition (mainPlayer.transform.position);
+		//make the car stop running
+		mainPlayerCar.SetTargetPosition (mainPlayerCar.transform.position);
+		mainCamera.SwitchViewToPlayer ();
+	
 	}
+
+
 }
