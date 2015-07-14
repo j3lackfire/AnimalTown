@@ -54,13 +54,12 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 						singleton.transform.parent = singletonManager.transform;
 						singleton.transform.localPosition = Vector3.zero;
 
-						Debug.Log("<color=yellow>[Singleton]</color> An instance of " + typeof(T) + 
-						          " is needed in the scene, so '" + singleton +
-						          "' was created with DontDestroyOnLoad.");
+//						Debug.Log("<color=yellow>[Singleton]</color> An instance of " + typeof(T) + 
+//						          " is needed in the scene, so '" + singleton +
+//						          "' was created with DontDestroyOnLoad.");
 					} 
 					else {
-						Debug.Log("<color=yellow>[Singleton]</color> Using instance already created: " +
-						          _instance.gameObject.name);
+//						Debug.Log("<color=yellow>[Singleton]</color> Using instance already created: " + _instance.gameObject.name);
 					}
 				}
 				

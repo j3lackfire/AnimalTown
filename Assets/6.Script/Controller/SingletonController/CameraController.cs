@@ -8,7 +8,9 @@ public enum CameraFocusingTarget{
 	Else //this is wrong !!!
 }
 
-public class CameraController : MonoBehaviour {
+
+[RequireComponent(typeof(Camera))]
+public class CameraController : Singleton<CameraController> {
 
 #region CAMERA_SET_UP_VALUES
 
@@ -19,14 +21,14 @@ public class CameraController : MonoBehaviour {
 #endregion
 
 #region UNITY EDITOR
-	private MainPlayerController mainPlayer;
+//	private MainPlayerController mainPlayer;
 
 	[SerializeField]public GameObject focusingTarget;
 
 #endregion
 
 	void Awake(){
-		mainPlayer = FindObjectOfType<MainPlayerController> ();
+//		mainPlayer = FindObjectOfType<MainPlayerController> ();
 		SwitchViewToPlayer ();
 	}
 
@@ -54,7 +56,7 @@ public class CameraController : MonoBehaviour {
 	}
 
 	public void SwitchViewToPlayer(){
-		focusingTarget = mainPlayer.gameObject;
+		focusingTarget = MainPlayerController.Instance.gameObject;
 		cameraPositionOffset = new Vector3 (0, 15, -8);
 		cameraFocusingTarget = CameraFocusingTarget.Player;
 	}

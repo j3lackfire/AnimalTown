@@ -1,28 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MouseController : MonoBehaviour {
-	public DataController MainDataController;
+public class MouseController : Singleton<MouseController> {
+//	public DataController MainDataController;
 
 #region UNITY EDITOR
-	[HideInInspector]public Camera mainCamera;
-
+//	[HideInInspector]public CameraController mainCamera;
+	private Camera camera;
 //	public MainPlayerController MainPlayer;
 //	public CarController MainCar;
 #endregion
 
-	Vector3 RaycastHitPosition;
+//	Vector3 RaycastHitPosition;
 
 	void Awake(){
-		mainCamera = GameObject.Find ("Main Camera").GetComponent<Camera>();
-		RaycastHitPosition = Vector3.zero;
-		MainDataController = GameObject.FindObjectOfType<DataController> ();
+//		mainCamera = GameObject.FindObjectOfType<CameraController>();
+		camera = CameraController.Instance.gameObject.GetComponent<Camera>();
+//		RaycastHitPosition = Vector3.zero;
+//		MainDataController = GameObject.FindObjectOfType<DataController> ();
 	}
 
 	void Update() {
 		//Let's check if the player press the mouse button
 		if (Input.GetMouseButton (0)) {
-			Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+			Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitInfo;
 			//layer 8 : road and terrain , layer 9 : cars , layer 10 = farm stack
 			int layerMask = (1 << 8 | 1 << 9 | 1 << 10);
@@ -59,11 +60,11 @@ public class MouseController : MonoBehaviour {
 					break;
 				case "Cars": //move to car and drive it, maybe
 					PlayerCommandType = CommandType.InteractWithObject;
-					MainDataController.interactableGameObject = hitInfo.transform.gameObject;
+					DataController.Instance.interactableGameObject = hitInfo.transform.gameObject;
 					break;
 				case "Farms":
 					PlayerCommandType = CommandType.InteractWithObject;
-					MainDataController.interactableGameObject = hitInfo.transform.gameObject;
+					DataController.Instance.interactableGameObject = hitInfo.transform.gameObject;
 					break;
 				default:
 					Debug.Log("<color=red>Something wrong happen at the Mouse controller, please check here</color>");
@@ -71,7 +72,7 @@ public class MouseController : MonoBehaviour {
 					break;
 				}
 
-				MainDataController.SetMouseClickPosition(hitInfo.point,PlayerCommandType);
+				DataController.Instance.SetMouseClickPosition(hitInfo.point,PlayerCommandType);
 
 			}
 		}

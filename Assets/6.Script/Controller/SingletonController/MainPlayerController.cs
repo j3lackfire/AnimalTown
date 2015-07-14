@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// The Main player of the game.
+/// This is the player. This is the most important part of the game.
+/// Don't fuck this up ~.~
+/// </summary>
+
+using UnityEngine;
 using System.Collections;
 
-public class MainPlayerController : MonoBehaviour {
+public class MainPlayerController : Singleton<MainPlayerController> {
 
 #region UNITY EDITOR
 
-	public CameraController MainCamera;
+//	public CameraController MainCamera;
 
 
 

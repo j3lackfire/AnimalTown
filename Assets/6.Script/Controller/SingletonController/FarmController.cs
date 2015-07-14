@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 
 //everything belong to the controller class should be a singleton, I think
-public class FarmController : MonoBehaviour {
+public class FarmController : Singleton<FarmController> {
 
 #region USER INTERFACE
 

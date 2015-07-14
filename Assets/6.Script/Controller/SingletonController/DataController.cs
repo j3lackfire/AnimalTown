@@ -26,7 +26,7 @@ public enum InteractableObjectType{
 
 
 //I think this class should be singleton, because there will be only one, and we will need it very much
-public class DataController : MonoBehaviour {
+public class DataController : Singleton<DataController> {
 
 #region ENUMERATORS
 	public PlayerState playerState;
@@ -43,9 +43,9 @@ public class DataController : MonoBehaviour {
 #endregion
 
 #region UNITY EDITOR
-	[HideInInspector]public CameraController mainCamera;
+//	[HideInInspector]public CameraController mainCamera;
 	
-	public MainPlayerController mainPlayer;
+//	public MainPlayerController mainPlayer;
 	public CarController mainPlayerCar;
 #endregion
 
@@ -55,8 +55,8 @@ public class DataController : MonoBehaviour {
 		commandType = CommandType.MoveToPosition;
 		interactableObjectType = InteractableObjectType.Cars;
 
-		mainPlayer = FindObjectOfType<MainPlayerController> ();
-		mainCamera = FindObjectOfType<CameraController> ();
+//		mainPlayer = FindObjectOfType<MainPlayerController> ();
+//		mainCamera = FindObjectOfType<CameraController> ();
 	}
 
 	void Update(){
@@ -75,7 +75,7 @@ public class DataController : MonoBehaviour {
 			//What is the player doing ?
 			switch(playerState){
 			case PlayerState.OnFoot:
-				mainPlayer.SetTargetPosition(clickPosition);
+				MainPlayerController.Instance.SetTargetPosition(clickPosition);
 				break;
 			case PlayerState.Driving:
 				mainPlayerCar.SetTargetPosition(clickPosition);
@@ -92,7 +92,7 @@ public class DataController : MonoBehaviour {
 			//First, we check if the player is within the object range. If not, we have to move to the ojbect
 			if (commandType != CommandType.InteractWithObject){
 				commandType = CommandType.InteractWithObject;
-				mainPlayer.SetTargetPosition(clickPosition);
+				MainPlayerController.Instance.SetTargetPosition(clickPosition);
 				StartCoroutine(InteractWithObject());
 			}
 
@@ -121,7 +121,7 @@ public class DataController : MonoBehaviour {
 //				goto EndOfCoroutine;
 				break;
 			}
-			Collider[] surroundingColliders = Physics.OverlapSphere(mainPlayer.transform.position + new Vector3(0,1,0),1.25f,collidingLayerMask);
+			Collider[] surroundingColliders = Physics.OverlapSphere(MainPlayerController.Instance.transform.position + new Vector3(0,1,0),1.25f,collidingLayerMask);
 
 			foreach(Collider c in surroundingColliders){
 				if(c.gameObject == interactableGameObject){
@@ -157,17 +157,17 @@ public class DataController : MonoBehaviour {
 			//first, change the player state to driving.
 			playerState = PlayerState.Driving;
 
-			mainPlayer.SetTargetPosition(mainPlayer.transform.position);
+			MainPlayerController.Instance.SetTargetPosition(MainPlayerController.Instance.transform.position);
 
 			//we should do an animation of player enter the car here		
 			//When enter the car, deactive the player, or move him some where else
-			mainPlayer.EnterCarAnimation();
+			MainPlayerController.Instance.EnterCarAnimation();
 
 			//Switch the main controller to the Car
 			mainPlayerCar = interactableGameObject.gameObject.GetComponent<CarController>();
 
 			//Set up the camera to focus on the car again.
-			mainCamera.SwitchViewToCar(interactableGameObject);
+			CameraController.Instance.SwitchViewToCar(interactableGameObject);
 
 		}
 		else {
@@ -175,25 +175,25 @@ public class DataController : MonoBehaviour {
 			//stop the player movement
 			playerState = PlayerState.OnFoot;
 			commandType = CommandType.MoveToPosition;
-			mainPlayer.SetTargetPosition(mainPlayer.transform.position);
+			MainPlayerController.Instance.SetTargetPosition(MainPlayerController.Instance.transform.position);
 		}
 	}
 
 	public void PlayerExitCar(){
 		playerState = PlayerState.OnFoot;		
-		mainPlayer.gameObject.SetActive (true);
+		MainPlayerController.Instance.gameObject.SetActive (true);
 
-		mainPlayer.ExitCarAnimation ();
-		mainPlayer.transform.position = interactableGameObject.transform.position;
-		mainPlayer.SetTargetPosition (mainPlayer.transform.position);
+		MainPlayerController.Instance.ExitCarAnimation ();
+		MainPlayerController.Instance.transform.position = interactableGameObject.transform.position;
+		MainPlayerController.Instance.SetTargetPosition (MainPlayerController.Instance.transform.position);
 		//make the car stop running
 		mainPlayerCar.SetTargetPosition (mainPlayerCar.transform.position);
-		mainCamera.SwitchViewToPlayer ();
+		CameraController.Instance.SwitchViewToPlayer ();
 	}
 
 	public void PlayerInteractWithFarm(){
 		Debug.Log("<color=green>Player is interacting with the farm</color>");			
-		mainPlayer.SetTargetPosition (mainPlayer.transform.position);
+		MainPlayerController.Instance.SetTargetPosition (MainPlayerController.Instance.transform.position);
 		//set this interactableGameObject to something ...
 	}
 
