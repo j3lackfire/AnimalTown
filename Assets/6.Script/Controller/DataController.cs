@@ -87,13 +87,15 @@ public class DataController : MonoBehaviour {
 			break;
 
 		case CommandType.InteractWithObject:
-			Debug.Log("<color=orange>Player is interacting with an object</color>");
+//			Debug.Log("<color=orange>Player is interacting with an object</color>");
+
 			//First, we check if the player is within the object range. If not, we have to move to the ojbect
 			if (commandType != CommandType.InteractWithObject){
 				commandType = CommandType.InteractWithObject;
 				mainPlayer.SetTargetPosition(clickPosition);
 				StartCoroutine(InteractWithObject());
 			}
+
 
 			break;
 		case CommandType.InteractWithNPC:
@@ -109,13 +111,13 @@ public class DataController : MonoBehaviour {
 
 	IEnumerator InteractWithObject(){
 		//check if the player is within the object range, if true, start interact with the object
-		Debug.Log("<color=red>Make sure this line is run only one!!!</color>");
+//		Debug.Log("<color=red>Make sure this line is run only one!!!</color>");
 		
 		//layer 8 : road and terrain , layer 9 : cars , layer 10 = farm stack
 		int collidingLayerMask = (1 << 9 | 1 << 10);
 		while (true) {
 			if (commandType != CommandType.InteractWithObject){
-				Debug.Log("<color=green>Quit interacting with game object!!!</color>");
+//				Debug.Log("<color=green>Quit interacting with game object!!!</color>");
 //				goto EndOfCoroutine;
 				break;
 			}
@@ -129,20 +131,22 @@ public class DataController : MonoBehaviour {
 						PlayerEnterCar();
 						break;
 					case "Farms":
+						//Player is interacting with a farm
+						PlayerInteractWithFarm();
 						//should pop up an UI or things like that...
 						break;
 					default:
 						Debug.Log("<color=red>Error with interactable game object. Please check!!!</color>");
 						break;
 					}
-					goto EndOfCoroutine;
+					goto EndOfCoroutine; //I know, I know ...
 					break;
 				}
 			}
 
 			yield return null;
 		}
-	EndOfCoroutine:
+	EndOfCoroutine: //Yeah, I know ....
 		yield return null;
 	}
 
@@ -173,8 +177,6 @@ public class DataController : MonoBehaviour {
 			commandType = CommandType.MoveToPosition;
 			mainPlayer.SetTargetPosition(mainPlayer.transform.position);
 		}
-
-
 	}
 
 	public void PlayerExitCar(){
@@ -187,8 +189,12 @@ public class DataController : MonoBehaviour {
 		//make the car stop running
 		mainPlayerCar.SetTargetPosition (mainPlayerCar.transform.position);
 		mainCamera.SwitchViewToPlayer ();
-	
 	}
 
+	public void PlayerInteractWithFarm(){
+		Debug.Log("<color=green>Player is interacting with the farm</color>");			
+		mainPlayer.SetTargetPosition (mainPlayer.transform.position);
+		//set this interactableGameObject to something ...
+	}
 
 }

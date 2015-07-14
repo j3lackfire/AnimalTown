@@ -36,6 +36,11 @@ public class CarController : MonoBehaviour {
 		Vector3 distance = new Vector3
 			(targetPosition.x - this.transform.position.x,0,targetPosition.z - this.transform.position.z);
 
+		this.transform.LookAt(targetPosition);
+		float yRotation = this.gameObject.transform.localRotation.eulerAngles.y;
+		this.transform.localRotation = Quaternion.Euler(new Vector3(0,yRotation,0));
+
+
 		if (distance.magnitude < 0.2f) {
 			r.velocity = Vector3.zero;
 			return;
@@ -51,8 +56,7 @@ public class CarController : MonoBehaviour {
 		
 		this.transform.LookAt(_targetPosition);
 		float yRotation = this.gameObject.transform.localRotation.eulerAngles.y;
-		this.transform.localRotation = Quaternion.Euler
-			(new Vector3(0,yRotation,0));
+		this.transform.localRotation = Quaternion.Euler(new Vector3(0,yRotation,0));
 		targetPosition = _targetPosition;
 		
 		Vector3 distance = new Vector3

@@ -61,6 +61,10 @@ public class MouseController : MonoBehaviour {
 					PlayerCommandType = CommandType.InteractWithObject;
 					MainDataController.interactableGameObject = hitInfo.transform.gameObject;
 					break;
+				case "Farms":
+					PlayerCommandType = CommandType.InteractWithObject;
+					MainDataController.interactableGameObject = hitInfo.transform.gameObject;
+					break;
 				default:
 					Debug.Log("<color=red>Something wrong happen at the Mouse controller, please check here</color>");
 					PlayerCommandType = CommandType.Error;
