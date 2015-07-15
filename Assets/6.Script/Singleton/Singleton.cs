@@ -30,8 +30,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 					if ( FindObjectsOfType(typeof(T)).Length > 1 )
 					{
 						Debug.LogError("<color=yellow>[Singleton]</color> Something went really wrong " +
-						               " - there should never be more than 1 singleton!" +
-						               " Reopening the scene might fix it.");
+						               " - there should never be more than 1 singleton! " + _instance.transform.name);
 						return _instance;
 					}
 					

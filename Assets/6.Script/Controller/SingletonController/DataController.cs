@@ -193,8 +193,11 @@ public class DataController : Singleton<DataController> {
 
 	public void PlayerInteractWithFarm(){
 		Debug.Log("<color=green>Player is interacting with the farm</color>");			
+		//Make the player stay in one place
 		MainPlayerController.Instance.SetTargetPosition (MainPlayerController.Instance.transform.position);
 		//set this interactableGameObject to something ...
+		FarmController.Instance.SelectedFarmStack = interactableGameObject.gameObject.GetComponent<FarmStack>();
+		FarmController.Instance.ShowFarmUI ();
 	}
 
 }

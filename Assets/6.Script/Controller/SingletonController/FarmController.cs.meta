@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 8b7adc11bb9b4484d98a3ec0a11eb3ea
-timeCreated: 1436892373
+timeCreated: 1436977940
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - FarmPanelWidescreen: {fileID: 184860, guid: 99d3ab764183d4db78d16c58cac0baea,
+      type: 2}
+  - FarmPanelNarrowScreen: {fileID: 114274, guid: 54f155bccf3e74facac4052f61434ec4,
+      type: 2}
+  - farmPanel: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

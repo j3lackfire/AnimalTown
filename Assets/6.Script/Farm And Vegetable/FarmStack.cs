@@ -38,26 +38,26 @@ public class FarmStack : MonoBehaviour {
 	}
 
 //	Just for test
-	void Update(){
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Debug.Log ("<color=blue>Press Space key</color>");
-			for (int i = 0; i < 3; i ++) {
-				for (int j = 0; j < 3; j ++){
-					if (VegetableBoard[i,j] != null){
-						VegetableBoard[i,j].transform.position += new Vector3(0,2,0) ;
-					}
-				}
-			}
-		}
-		if (Input.GetKeyDown (KeyCode.Return)) {
-			Debug.Log ("<color=blue>Press Space key</color>");
-			for (int i = 0; i < 3; i ++) {
-				for (int j = 0; j < 3; j ++){
-					RemoveVegetable(new Vector2(i,j));
-				}
-			}
-		}
-	}
+//	void Update(){
+//		if (Input.GetKeyDown (KeyCode.Space)) {
+//			Debug.Log ("<color=blue>Press Space key</color>");
+//			for (int i = 0; i < 3; i ++) {
+//				for (int j = 0; j < 3; j ++){
+//					if (VegetableBoard[i,j] != null){
+//						VegetableBoard[i,j].transform.position += new Vector3(0,2,0) ;
+//					}
+//				}
+//			}
+//		}
+//		if (Input.GetKeyDown (KeyCode.Return)) {
+//			Debug.Log ("<color=blue>Press Space key</color>");
+//			for (int i = 0; i < 3; i ++) {
+//				for (int j = 0; j < 3; j ++){
+//					RemoveVegetable(new Vector2(i,j));
+//				}
+//			}
+//		}
+//	}
 
 
 	public void InitializeFarmStack(){
@@ -66,35 +66,12 @@ public class FarmStack : MonoBehaviour {
 				VegetableBoard[i,j] = null;
 			}
 		}
-//		AddVegetable (bigCarrot,0,0);
-//		AddVegetable (smallCorn,0,1);
-//		AddVegetable (smallPumpkin,0,2);
-//		AddVegetable (mediumCorn,1,0);
-//		AddVegetable (mediumPumpkin,1,1);
-//		AddVegetable (bigCarrot,1,2);
-//		AddVegetable (bigWatermelon,2,0);
-//		AddVegetable (bigSunflower,2,1);
-//		AddVegetable (smallCabbage,2,2);
-
 
 		Transform objectTransform = this.gameObject.GetComponent<Transform> ();
-//		Debug.Log ("<color=green>CHILD COUNT : </color>" + objectTransform.childCount.ToString());
 
 		foreach(Transform child in objectTransform){
 			VegetableBoard[(int)child.transform.localPosition.x / 3 , (int)child.transform.localPosition.z / 3] = child.GetComponent<Vegetable>();
-
-//			Debug.Log("<color=green>ADD VEGETABLE AT :  </color>" + ((int)child.transform.localPosition.x / 3).ToString() + " , " + ((int)child.transform.localPosition.z / 3).ToString());
-			
 		}
-
-
-//		for (int i = 0; i < 3; i ++) {
-//			for (int j = 0; j < 3; j ++){
-//				if (VegetableBoard[i,j] == null){
-//					Debug.Log("<color=blue>EMPTY AT : </color>" + i.ToString() + " , " + j.ToString());
-//				}
-//			}
-//		}
 	}
 
 

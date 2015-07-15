@@ -32,6 +32,7 @@ public class MouseController : Singleton<MouseController> {
 			if (Physics.Raycast (ray,out hitInfo,100f,layerMask)){
 				//return if player is touching on a game UI.
 				try{
+//					Debug.Log("Why it's not running ??");
 					if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()){
 						//if player is click on the UI button
 						return;
