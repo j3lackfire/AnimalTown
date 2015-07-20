@@ -37,29 +37,6 @@ public class FarmStack : MonoBehaviour {
 		InitializeFarmStack ();
 	}
 
-//	Just for test
-//	void Update(){
-//		if (Input.GetKeyDown (KeyCode.Space)) {
-//			Debug.Log ("<color=blue>Press Space key</color>");
-//			for (int i = 0; i < 3; i ++) {
-//				for (int j = 0; j < 3; j ++){
-//					if (VegetableBoard[i,j] != null){
-//						VegetableBoard[i,j].transform.position += new Vector3(0,2,0) ;
-//					}
-//				}
-//			}
-//		}
-//		if (Input.GetKeyDown (KeyCode.Return)) {
-//			Debug.Log ("<color=blue>Press Space key</color>");
-//			for (int i = 0; i < 3; i ++) {
-//				for (int j = 0; j < 3; j ++){
-//					RemoveVegetable(new Vector2(i,j));
-//				}
-//			}
-//		}
-//	}
-
-
 	public void InitializeFarmStack(){
 		for (int i = 0; i < 3; i ++) {
 			for (int j = 0; j < 3; j ++){
@@ -91,6 +68,10 @@ public class FarmStack : MonoBehaviour {
 		AddVegetable (veg, new Vector2 (xPosition, yPosition));
 	}
 
+	public void RemoveVegetable(int positionX,int positionY){
+		RemoveVegetable (new Vector2(positionX,positionY));
+	}
+
 	public void RemoveVegetable(Vector2 vegPosition){
 		if (vegPosition.x < 0 || vegPosition.x > 2 || vegPosition.y < 0 || vegPosition.y > 2) {
 			Debug.LogError ("<color=green>WRONG VEGETABLE POSITION</color>");
@@ -98,6 +79,7 @@ public class FarmStack : MonoBehaviour {
 		} 
 		else {
 			Destroy(VegetableBoard[(int)vegPosition.x,(int)vegPosition.y].gameObject);
+			VegetableBoard[(int)vegPosition.x,(int)vegPosition.y] = null;
 		}
 	}
 

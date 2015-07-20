@@ -16,6 +16,12 @@ public class FarmPanel : MonoBehaviour {
 	public FarmStack currentFarmStack;
 #endregion
 
+	void Awake(){
+		for (int i = 0; i < 9; i ++) {
+			FarmPanelButton[i].indexInFarm = i;
+		}
+	}
+
 	void OnEnable(){
 		BigHideUIButton.onClick.AddListener (FarmController.Instance.HideFarmUI);
 		SmallHideUIButton.onClick.AddListener (FarmController.Instance.HideFarmUI);
@@ -41,12 +47,15 @@ public class FarmPanel : MonoBehaviour {
 //		yield return new WaitForEndOfFrame();	
 		for (int i = 0; i < 3; i ++) {
 			for (int j = 0; j < 3; j ++){
-				if (currentFarmStack.VegetableBoard[i,j] == null){
-					FarmPanelButton[i*3 + j].VegetableText.text = "NOTHING";
-				}
-				else{
-					FarmPanelButton[i*3 + j].VegetableText.text = currentFarmStack.VegetableBoard[i,j].transform.name;
-				}
+				FarmPanelButton[i * 3 + j].SetUpFarmPanelButton(currentFarmStack.VegetableBoard[i,j]);
+
+//				if (currentFarmStack.VegetableBoard[i,j] == null){
+//					FarmPanelButton[i*3 + j].VegetableText.text = "NOTHING";
+//				}
+//				else{
+//					FarmPanelButton[i*3 + j].VegetableText.text = currentFarmStack.VegetableBoard[i,j].transform.name;
+//				}
+
 			}
 		}
 	}

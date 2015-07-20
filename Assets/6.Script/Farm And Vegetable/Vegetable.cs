@@ -7,5 +7,10 @@ using System.Collections;
 
 public class Vegetable : MonoBehaviour {
 
+	public PlantState plantState;
+
+	void Awake(){
+//		plantState = PlantState.Growing;
+	}
 
 }

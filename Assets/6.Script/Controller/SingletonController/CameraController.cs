@@ -51,13 +51,15 @@ public class CameraController : Singleton<CameraController> {
 
 	public void SwitchViewToCar(GameObject car){
 		focusingTarget = car;
-		cameraPositionOffset = new Vector3 (0, 20, -15);
+		cameraPositionOffset = new Vector3 (15, 20, 0);
+//		cameraPositionOffset = new Vector3 (0, 20, -15);
 		cameraFocusingTarget = CameraFocusingTarget.Car;
 	}
 
 	public void SwitchViewToPlayer(){
 		focusingTarget = MainPlayerController.Instance.gameObject;
-		cameraPositionOffset = new Vector3 (0, 15, -8);
+//		cameraPositionOffset = new Vector3 (0, 15, -8);
+		cameraPositionOffset = new Vector3 (8, 15, 0);
 		cameraFocusingTarget = CameraFocusingTarget.Player;
 	}
 

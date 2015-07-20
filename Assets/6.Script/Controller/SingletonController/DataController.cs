@@ -88,7 +88,9 @@ public class DataController : Singleton<DataController> {
 
 		case CommandType.InteractWithObject:
 //			Debug.Log("<color=orange>Player is interacting with an object</color>");
-
+			if (playerState == PlayerState.Driving){
+				mainPlayerCar.SetTargetPosition(clickPosition);
+			}
 			//First, we check if the player is within the object range. If not, we have to move to the ojbect
 			if (commandType != CommandType.InteractWithObject){
 				commandType = CommandType.InteractWithObject;
